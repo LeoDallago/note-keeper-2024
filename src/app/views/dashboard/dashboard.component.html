@@ -1,0 +1,29 @@
+<main class="container-fluid my-3 px-3">
+    <h1 class="fs-2">
+        Dashboard
+    </h1>
+    <hr>
+
+    <div class="row g-3 mt-2">
+        <div *ngFor="let item of itens" class="col-lg-4 col-xxl-3">
+            <mat-card class="mat-mdc-elevation-specific mat-elevation-z3 h-100">
+                <mat-card-header>
+                    <mat-card-title class="texto-titulo-card">
+                        {{item.titulo}}
+                    </mat-card-title>
+                </mat-card-header>
+
+                <mat-divider class="m-1"></mat-divider>
+
+                <mat-card-content>
+                    {{item.descricao}}
+                </mat-card-content>
+                <mat-card-footer class="d-flex justify-content-end p-3 mt-auto">
+                    <a class="botao-icone" mat-icon-button [routerLink]="item.rota">
+                        <mat-icon>arrow_right</mat-icon>
+                    </a>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+</main>
