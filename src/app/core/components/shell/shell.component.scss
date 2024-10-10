@@ -5,18 +5,18 @@
 .sidenav {
   width: 200px;
   border-radius: 0;
-  background-color: aliceblue;
+  background-color: #d7e3ff;
 }
 
 .sidenav .mat-toolbar {
-  background-color: aliceblue;
-  color: navy;
+  background-color: #d7e3ff;
+  color: #001b3f;
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: aliceblue;
-  color: navy;
+  background-color: #d7e3ff;
+  color: #001b3f;
 }

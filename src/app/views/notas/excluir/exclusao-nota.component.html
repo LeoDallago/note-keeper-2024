@@ -1,0 +1,26 @@
+<main class="container-fluid my-3 px-3">
+  <h1 class="fs-2">
+    Exclusao de notas
+  </h1>
+
+  <hr>
+  <div *ngIf="nota$ | async as nota" class="row g-3 mt-2">
+    <div class="col">
+      <p>
+        Deseja Excluir a nota {{nota.categoria}}?
+      </p>
+
+      <div class="row justify-content-end g-2 gap-1">
+        <button (click)="excluir()" type="button" mat-flat-button class="col-sm-3 col-md-2">
+          Confirmar
+          <mat-icon>check</mat-icon>
+        </button>
+
+        <button type="button" mat-stroked-button class="col-sm-3 col-md-2" routerLink="/notas">
+          Voltar
+          <mat-icon>keyboard_return</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>

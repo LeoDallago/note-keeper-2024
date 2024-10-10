@@ -39,7 +39,7 @@
             class="botao-editar"
             mat-icon-button
             matTooltip = 'Editar'
-            [routerLink]="['/notas',item.id]"
+            [routerLink]="['/notas','editar',item.id]"
           >
             <mat-icon>edit</mat-icon>
           </a>
@@ -48,7 +48,7 @@
             class="botao-excluir"
             mat-icon-button
             matTooltip= 'Excluir'
-            [routerLink]="['/notas',item.id]"
+            [routerLink]="['/notas','excluir',item.id]"
           >
             <mat-icon>delete</mat-icon>
           </a>

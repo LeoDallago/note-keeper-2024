@@ -4,10 +4,10 @@ import { MatAnchor, MatButton, MatIconAnchor } from '@angular/material/button';
 import { MatCard, MatCardFooter, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatFormField, MatHint, MatLabel, MatPrefix } from '@angular/material/form-field';
+import { MatError, MatFormField, MatHint, MatLabel, MatPrefix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoriaService } from '../services/categoria.service';
 import { CadastroCategoria, DetalhesCategoria, EdicaoCategoria } from '../models/categoria.models';
 
@@ -34,6 +34,7 @@ import { CadastroCategoria, DetalhesCategoria, EdicaoCategoria } from '../models
     MatPrefix,
     RouterLink,
     ReactiveFormsModule,
+    MatError,
   ],
   templateUrl: './edicao-categoria.component.html',
 })
@@ -47,8 +48,13 @@ export class EdicaoCategoriaComponent implements OnInit{
     private categoriaService: CategoriaService
   ) {
     this.categoriaForm = new FormGroup({
-      titulo: new FormControl<string>(''),
+      titulo: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
     });
+  }
+
+
+  get titulo() {
+    return this.categoriaForm.get('titulo');
   }
 
   ngOnInit(): void {
@@ -67,6 +73,8 @@ export class EdicaoCategoriaComponent implements OnInit{
     }
 
   editar() {
+    if(this.categoriaForm.invalid)return
+
     if(!this.id){
       console.error('id nao encontrado')
       return;
