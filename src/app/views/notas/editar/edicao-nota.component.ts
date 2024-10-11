@@ -14,6 +14,7 @@ import { DetalhesCategoria, ListagemCategoria } from '../../categorias/models/ca
 import { CategoriaService } from '../../categorias/services/categoria.service';
 import { NotaService } from '../services/nota.service';
 import { CadastroNota, DetalhesNota } from '../models/nota.models';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-edicao-nota',
@@ -55,6 +56,7 @@ export class EdicaoNotaComponent implements OnInit{
     private router: Router,
     private categoriaService: CategoriaService ,
     private notaService?: NotaService,
+    private notificacao?: NotificacaoService,
   ) {
     this.notaform = new FormGroup({
       titulo: new FormControl<string>(''),
@@ -80,14 +82,14 @@ export class EdicaoNotaComponent implements OnInit{
 
   editar(){
     if(!this.id){
-      console.error('id nao encontrado')
+     this.notificacao?.erro('id nao encontrado')
       return;
     }
 
     const notaEditada: CadastroNota = this.notaform.value;
 
     this.notaService?.editar(this.id,notaEditada).subscribe((res) =>{
-      console.log(`O registro ID [${res.id}] foi editado com sucesso!`);
+     this.notificacao?.sucesso(`O registro ID [${res.id}] foi editado com sucesso!`);
 
       this.router.navigate(['/notas']);
     })

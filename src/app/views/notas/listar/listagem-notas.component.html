@@ -20,7 +20,7 @@
   <hr>
 
   <mat-chip-set aria-label="Fish selection">
-    <mat-chip (click)="filtrar('')">Todos</mat-chip>
+    <mat-chip (click)="filtrar('')">Todas</mat-chip>
     <mat-chip
       *ngFor="let categoria of categorias$ | async"
       (click)="filtrar(categoria.titulo)"

@@ -14,6 +14,7 @@ import { ListagemCategoria } from '../../categorias/models/categoria.models';
 import { CategoriaService } from '../../categorias/services/categoria.service';
 import { NotaService } from '../services/nota.service';
 import { CadastroNota } from '../models/nota.models';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-cadastro-nota',
@@ -55,6 +56,7 @@ export class CadastroNotaComponent implements OnInit{
     private router: Router,
     private categoriaService: CategoriaService ,
     private notaService?: NotaService,
+    private notificacao?: NotificacaoService,
   ) {
     this.notaform = new FormGroup({
       titulo: new FormControl<string>(''),
@@ -71,7 +73,7 @@ export class CadastroNotaComponent implements OnInit{
     const novaNota: CadastroNota = this.notaform.value;
 
     this.notaService?.cadastrar(novaNota).subscribe((res) =>{
-      console.log(`O registro ID [${res.id}] foi cadastrado com sucesso!`);
+      this.notificacao?.sucesso(`O registro ID [${res.id}] foi cadastrado com sucesso!`);
 
       this.router.navigate(['/notas']);
     })

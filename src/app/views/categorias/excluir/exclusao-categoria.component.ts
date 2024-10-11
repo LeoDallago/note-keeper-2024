@@ -63,7 +63,7 @@ export class ExclusaoCategoriaComponent implements OnInit{
       .excluir(this.id)
       .subscribe((res) =>{
 
-        this.notificacao.sucesso(`O registro ID [${this.id}] foi editado com sucesso!`);
+        this.notificacao.sucesso(`O registro ID [${this.id}] foi excluido com sucesso!`);
         this.router.navigate(['/categorias'])
       })
   }
