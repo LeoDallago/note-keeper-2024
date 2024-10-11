@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoriaService } from '../services/categoria.service';
 import { CadastroCategoria, DetalhesCategoria, EdicaoCategoria } from '../models/categoria.models';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-edicao-categoria',
@@ -45,7 +46,8 @@ export class EdicaoCategoriaComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private notificacao: NotificacaoService
   ) {
     this.categoriaForm = new FormGroup({
       titulo: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
@@ -61,7 +63,7 @@ export class EdicaoCategoriaComponent implements OnInit{
     this.id = this.route.snapshot.params['id'];
 
     if(!this.id){
-      console.error('id nao encontrado')
+      this.notificacao.erro('id nao encontrado')
       return;
     }
 
@@ -76,14 +78,14 @@ export class EdicaoCategoriaComponent implements OnInit{
     if(this.categoriaForm.invalid)return
 
     if(!this.id){
-      console.error('id nao encontrado')
+      this.notificacao.erro('id nao encontrado')
       return;
     }
 
     const categoriaEditada: EdicaoCategoria = this.categoriaForm.value;
 
     this.categoriaService.editar(this.id ,categoriaEditada).subscribe((res) => {
-      console.log(`O registro ID [${res.id}] foi editado com sucesso!`);
+     this.notificacao.sucesso(`O registro ID [${res.id}] foi editado com sucesso!`);
 
       this.router.navigate(['/categorias']);
     });

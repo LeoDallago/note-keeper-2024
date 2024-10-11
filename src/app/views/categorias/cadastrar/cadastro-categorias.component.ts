@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoriaService } from '../services/categoria.service';
 import { CadastroCategoria } from '../models/categoria.models';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-cadastro-categorias',
@@ -44,7 +45,8 @@ export class CadastroCategoriasComponent {
 
   constructor(
     private router: Router,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private notficacao: NotificacaoService
   ) {
     this.categoriaForm = new FormGroup({
       titulo: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
@@ -61,7 +63,7 @@ export class CadastroCategoriasComponent {
     const novaCategoria: CadastroCategoria = this.categoriaForm.value;
 
     this.categoriaService.cadastrar(novaCategoria).subscribe((res) => {
-      console.log(`O registro ID [${res.id}] foi cadastrado com sucesso!`);
+      this.notficacao.sucesso(`O registro ID [${res.id}] foi cadastrado com sucesso!`);
 
       this.router.navigate(['/categorias']);
     });

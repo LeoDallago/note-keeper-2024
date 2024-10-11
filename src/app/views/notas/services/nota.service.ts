@@ -17,6 +17,7 @@ import {
   NotaEditada,
   NotaExcluida
 } from '../models/nota.models';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,7 @@ export class NotaService {
 
     return this.http.get<ListagemNota[]>(urlCompleto);
   }
+
 
   selecionarPorId(id: number) {
     const urlCompleto = `${this.url}?_expand=categoria`;
