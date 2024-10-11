@@ -52,7 +52,7 @@ export class ListagemNotasComponent implements OnInit{
   ) {
   }
 
-  public filtrar(filtro: string ) {
+  public filtrar(filtro: string) {
     if(filtro == '')
       return this.notas$ = this.notaService.selecionarTodos()
 
