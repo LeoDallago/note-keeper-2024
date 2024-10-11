@@ -7,7 +7,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatFormField, MatHint, MatLabel, MatPrefix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { ListagemCategoria } from '../../categorias/models/categoria.models';
@@ -59,10 +59,18 @@ export class CadastroNotaComponent implements OnInit{
     private notificacao?: NotificacaoService,
   ) {
     this.notaform = new FormGroup({
-      titulo: new FormControl<string>(''),
-      conteudo: new FormControl<string>(''),
-      categoriaId: new FormControl<number>(0),
+      titulo: new FormControl<string>('', Validators.required),
+      conteudo: new FormControl<string>('', Validators.required),
+      categoriaId: new FormControl<number>(0, Validators.required),
     })
+  }
+
+  get titulo(){
+    return this.notaform.get('titulo');
+  }
+
+  get conteudo(){
+    return this.notaform.get('conteudo');
   }
 
   ngOnInit(): void {
@@ -70,6 +78,8 @@ export class CadastroNotaComponent implements OnInit{
     }
 
   cadastrar(){
+    if(this.notaform.invalid)return
+
     const novaNota: CadastroNota = this.notaform.value;
 
     this.notaService?.cadastrar(novaNota).subscribe((res) =>{

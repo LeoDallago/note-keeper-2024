@@ -11,14 +11,14 @@
         <mat-label>Titulo </mat-label>
         <input formControlName="titulo" matInput placeholder="Placeholder">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
+        <mat-error *ngIf="titulo?.invalid">O titulo é obrigatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>Conteudo</mat-label>
         <textarea formControlName="conteudo" matInput placeholder="Placeholder"></textarea>
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
+        <mat-error *ngIf="conteudo?.invalid">O Conteudo é obrigatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field *ngIf="categorias$ | async as categorias" class="w-100" appearance="fill">
@@ -27,7 +27,6 @@
           <mat-option *ngFor="let categoria of categorias" [value] = 'categoria.id'>{{categoria.titulo}}</mat-option>
         </mat-select>
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
       </mat-form-field>
 
       <div class="row g-2 justify-content-end m-2">
