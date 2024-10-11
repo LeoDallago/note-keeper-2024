@@ -126,6 +126,13 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://leodallago.github.io/note-keeper-2024/",
+            "repo": "https://github.com/LeoDallago/note-keeper-2024.git"
+          }
         }
       }
     }
