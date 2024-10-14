@@ -10,6 +10,7 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { MatDivider } from '@angular/material/divider';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
+import { mIpsum } from 'mipsum';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,17 +35,21 @@ import { RouterLink } from '@angular/router';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+
+  public mipsum = mIpsum({
+    pNum: 1,
+    resultType: 'text',
+  })
+
   itens: ItemDashboard[] = [
     {
       titulo: 'Categorias',
-      descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, voluptatum et! Officiis,' +
-        ' cum repellendus natus assumen',
+      descricao: this.mipsum.toString(),
       rota: '/categorias'
     },
     {
       titulo: 'Notas',
-      descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, voluptatum et! Officiis,' +
-        ' cum repellendus natus assumen',
+      descricao: this.mipsum.toString(),
       rota: '/notas'
     },
   ]

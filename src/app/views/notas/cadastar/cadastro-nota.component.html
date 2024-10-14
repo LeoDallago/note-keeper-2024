@@ -6,27 +6,27 @@
   <hr>
 
   <div class="row g-3 mt-2">
-    <form [formGroup]="notaform" (submit)="cadastrar()"  class="col-lg-8 col-xl-5">
+    <form [formGroup]="notaform" (submit)="cadastrar()" class="col-lg-8 col-xl-5">
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>Titulo </mat-label>
         <input formControlName="titulo" matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-icon matSuffix>bookmarks</mat-icon>
         <mat-error *ngIf="titulo?.invalid">O titulo é obrigatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field class="w-100" appearance="fill">
         <mat-label>Conteudo</mat-label>
-        <textarea formControlName="conteudo" matInput placeholder="Placeholder"></textarea>
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <textarea formControlName="conteudo" matInput placeholder="Placeholder" rows="5"></textarea>
+        <mat-icon matSuffix>description</mat-icon>
         <mat-error *ngIf="conteudo?.invalid">O Conteudo é obrigatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field *ngIf="categorias$ | async as categorias" class="w-100" appearance="fill">
         <mat-label>Categoria</mat-label>
         <mat-select formControlName="categoriaId">
-          <mat-option *ngFor="let categoria of categorias" [value] = 'categoria.id'>{{categoria.titulo}}</mat-option>
+          <mat-option *ngFor="let categoria of categorias" [value]='categoria.id'>{{categoria.titulo}}</mat-option>
         </mat-select>
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-icon matSuffix>category</mat-icon>
       </mat-form-field>
 
       <div class="row g-2 justify-content-end m-2">
@@ -34,14 +34,14 @@
           <mat-card-header class="d-flex justify-content-between">
 
             <mat-card-title [ngSwitch]="campoEstaLimpo('titulo')" class="texto-titulo-card">
-             <span *ngSwitchCase="true">Esta eh a sua nota</span>
+              <span *ngSwitchCase="true">Esta eh a sua nota</span>
               <span *ngSwitchCase="false">{{notaform.get('titulo')?.value}}</span>
             </mat-card-title>
 
             <div [ngSwitch]="campoEstaLimpo('categoriaId')">
               <span *ngSwitchCase="true">Categoria</span>
               <span *ngSwitchCase="false">{{
-                  notaform.get("categoriaId")?.value
+                notaform.get("categoriaId")?.value
                 }}</span>
             </div>
           </mat-card-header>
@@ -60,12 +60,7 @@
           Confirmar
         </button>
 
-        <a
-          mat-stroked-button
-          type="button"
-          class="col-sm-3 col-md-4"
-          routerLink="/notas"
-        >
+        <a mat-stroked-button type="button" class="col-sm-3 col-md-4" routerLink="/notas">
           <mat-icon matIconPrefix>keyboard_return</mat-icon>
           Voltar
         </a>
