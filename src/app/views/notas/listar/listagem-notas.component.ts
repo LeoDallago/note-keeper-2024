@@ -7,7 +7,7 @@ import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
 import { filter, Observable } from 'rxjs';
-import { ListagemNota } from '../models/nota.models';
+import { CadastroNota, ListagemNota, NotaCriada } from '../models/nota.models';
 import { NotaService } from '../services/nota.service';
 import { map } from 'rxjs/operators';
 import { MatChip, MatChipSet } from '@angular/material/chips';
@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { ListagemCategoria } from '../../categorias/models/categoria.models';
 import { CategoriaService } from '../../categorias/services/categoria.service';
+import { ArquivadasService } from '../../arquivadas/services/arquivadas.service';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-listagem-notas',
@@ -42,30 +44,38 @@ import { CategoriaService } from '../../categorias/services/categoria.service';
   templateUrl: './listagem-notas.component.html',
   styleUrl: './listagem-notas.component.scss'
 })
-export class ListagemNotasComponent implements OnInit{
+export class ListagemNotasComponent implements OnInit {
   notas$?: Observable<ListagemNota[]>;
   categorias$?: Observable<ListagemCategoria[]>;
 
   constructor(
     private notaService: NotaService,
     private categoriaService: CategoriaService,
+    private arquivadaService: ArquivadasService,
+    private notificacao: NotificacaoService,
   ) {
   }
 
   public filtrar(filtro: string) {
-    if(filtro == '')
+    if (filtro == '')
       return this.notas$ = this.notaService.selecionarTodos()
 
-      const resultado = this.notaService.selecionarTodos().pipe(
-       map(f => f.filter(r => r.categoria.titulo == filtro))
-      )
+    const resultado = this.notaService.selecionarTodos().pipe(
+      map(f => f.filter(r => r.categoria.titulo == filtro))
+    )
 
     return this.notas$ = resultado;
   }
 
+  public arquivar(nota: NotaCriada) {
+    this.arquivadaService.cadastrar(nota).subscribe()
+    this.notaService.excluir(nota.id).subscribe()
+    this.notificacao.sucesso('Item Arquivado com sucesso!!');
+    window.location.reload
+  }
 
   ngOnInit(): void {
-     this.notas$ = this.notaService.selecionarTodos()
-     this.categorias$ = this.categoriaService.selecionarTodos();
+    this.notas$ = this.notaService.selecionarTodos()
+    this.categorias$ = this.categoriaService.selecionarTodos();
   }
 }

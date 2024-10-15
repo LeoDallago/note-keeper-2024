@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { CadastroNota, DetalhesNota, ListagemNota, NotaCriada } from '../../notas/models/nota.models';
+import { CadastroNota, DetalhesNota, ListagemNota, NotaCriada, NotaExcluida } from '../../notas/models/nota.models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,14 @@ export class ArquivadasService {
 
   constructor(private http: HttpClient) { }
 
-  cadastrar(novaArquivada: CadastroNota): Observable<NotaCriada> {
+  cadastrar(novaArquivada: NotaCriada): Observable<NotaCriada> {
     return this.http.post<NotaCriada>(this.url, novaArquivada);
+  }
+
+  excluir(id: number) {
+    const urlCompleto = `${this.url}/${id}`
+
+    return this.http.delete<NotaExcluida>(urlCompleto)
   }
 
   selecionarTodos(): Observable<ListagemNota[]> {

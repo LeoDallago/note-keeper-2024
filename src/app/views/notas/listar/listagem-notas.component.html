@@ -3,15 +3,8 @@
     Notas
   </h1>
 
-  <section
-    aria-label="Opções"
-    class="row justify-content-center justify-content-lg-start g-1"
-  >
-    <a
-      mat-flat-button
-      class="col-md-6 col-lg-4 col-xxl-2 fs-6 py-4"
-      [routerLink]="['/notas', 'cadastrar']"
-    >
+  <section aria-label="Opções" class="row justify-content-center justify-content-lg-start g-1">
+    <a mat-flat-button class="col-md-6 col-lg-4 col-xxl-2 fs-6 py-4" [routerLink]="['/notas', 'cadastrar']">
       <mat-icon>bookmark_add</mat-icon>
       Cadastrar
     </a>
@@ -21,10 +14,7 @@
 
   <mat-chip-set aria-label="Fish selection">
     <mat-chip (click)="filtrar('')">Todas</mat-chip>
-    <mat-chip
-      *ngFor="let categoria of categorias$ | async"
-      (click)="filtrar(categoria.titulo)"
-    >
+    <mat-chip *ngFor="let categoria of categorias$ | async" (click)="filtrar(categoria.titulo)">
       {{categoria.titulo}}
     </mat-chip>
   </mat-chip-set>
@@ -46,22 +36,16 @@
         </mat-card-content>
 
         <mat-card-footer class="d-flex justify-content-end p-3 gap-3 mt-auto">
-          <a
-            class="botao-editar"
-            mat-icon-button
-            matTooltip = 'Editar'
-            [routerLink]="['/notas','editar',item.id]"
-          >
+          <a class="botao-editar" mat-icon-button matTooltip='Editar' [routerLink]="['/notas','editar',item.id]">
             <mat-icon>edit</mat-icon>
           </a>
 
-          <a
-            class="botao-excluir"
-            mat-icon-button
-            matTooltip= 'Excluir'
-            [routerLink]="['/notas','excluir',item.id]"
-          >
+          <a class="botao-excluir" mat-icon-button matTooltip='Excluir' [routerLink]="['/notas','excluir',item.id]">
             <mat-icon>delete</mat-icon>
+          </a>
+
+          <a class="botao-excluir" mat-icon-button matTooltip='Arquivar' (click)="arquivar(item)">
+            <mat-icon>archive_2</mat-icon>
           </a>
         </mat-card-footer>
       </mat-card>
