@@ -45,6 +45,11 @@ export class ShellComponent {
       titulo: 'Notas',
       icone: 'collections_bookmark',
       rota: '/notas'
+    },
+    {
+      titulo: 'Arquivadas',
+      icone: 'inventory_2',
+      rota: '/arquivadas'
     }
   ]
 

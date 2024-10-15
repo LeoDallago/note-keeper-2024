@@ -6,6 +6,7 @@ import { EdicaoCategoriaComponent } from './views/categorias/editar/edicao-categ
 import { ExclusaoCategoriaComponent } from './views/categorias/excluir/exclusao-categoria.component';
 import { notasRoutes } from './views/notas/services/notas.routes';
 import { categoriaRoutes } from './views/categorias/services/categoria.routes';
+import { arquivadasRoutes } from './views/arquivadas/services/arquivadas.routes';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -13,4 +14,5 @@ export const routes: Routes = [
 
     { path: 'categorias', children: categoriaRoutes },
     { path: 'notas', children: notasRoutes },
+    { path: 'arquivadas', children: arquivadasRoutes }
 ];
