@@ -52,5 +52,10 @@ export class DashboardComponent {
       descricao: this.mipsum.toString(),
       rota: '/notas'
     },
+    {
+      titulo: 'Notas Arquivadas',
+      descricao: this.mipsum.toString(),
+      rota: '/arquivadas'
+    }
   ]
 }

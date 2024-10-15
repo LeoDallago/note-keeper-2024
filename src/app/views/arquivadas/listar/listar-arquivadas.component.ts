@@ -44,7 +44,6 @@ import { NotificacaoService } from '../../../core/notificacao/notificacao.servic
 export class ListarArquivadasComponent implements OnInit {
   arquivadas$?: Observable<ListagemNota[]>;
 
-
   constructor(
     private arquivadaService: ArquivadasService,
     private notaService: NotaService,
@@ -58,8 +57,6 @@ export class ListarArquivadasComponent implements OnInit {
     window.location.reload()
     this.notificacao.sucesso('Item Desarquivado com sucesso!!');
   }
-
-
 
   ngOnInit(): void {
     this.arquivadas$ = this.arquivadaService.selecionarTodos();

@@ -71,7 +71,7 @@ export class ListagemNotasComponent implements OnInit {
     this.arquivadaService.cadastrar(nota).subscribe()
     this.notaService.excluir(nota.id).subscribe()
     this.notificacao.sucesso('Item Arquivado com sucesso!!');
-    window.location.reload
+    window.location.reload();
   }
 
   ngOnInit(): void {
