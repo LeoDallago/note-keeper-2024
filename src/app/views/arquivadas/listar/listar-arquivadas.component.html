@@ -5,6 +5,13 @@
 
     <hr>
 
+    <mat-chip-set aria-label="Fish selection">
+        <mat-chip (click)="filtrarArquivadas('')">Todas</mat-chip>
+        <mat-chip *ngFor="let categoria of categorias$ | async" (click)="filtrarArquivadas(categoria.titulo)">
+            {{categoria.titulo}}
+        </mat-chip>
+    </mat-chip-set>
+
 
     <div *ngIf="arquivadas$ | async as itens" class="row g-3 mt-2">
         <div *ngFor="let item of itens" class="col-lg-4 col-xxl-3">

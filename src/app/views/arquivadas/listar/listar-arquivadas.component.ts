@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ListagemNota, NotaCriada } from '../../notas/models/nota.models';
 import { ArquivadasService } from '../services/arquivadas.service';
 import { MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle } from '@angular/material/card';
@@ -14,6 +14,8 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { NotaService } from '../../notas/services/nota.service';
 import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
+import { CategoriaService } from '../../categorias/services/categoria.service';
+import { ListagemCategoria } from '../../categorias/models/categoria.models';
 
 @Component({
   selector: 'app-listar-arquivadas',
@@ -43,12 +45,26 @@ import { NotificacaoService } from '../../../core/notificacao/notificacao.servic
 })
 export class ListarArquivadasComponent implements OnInit {
   arquivadas$?: Observable<ListagemNota[]>;
+  categorias$?: Observable<ListagemCategoria[]>
 
   constructor(
     private arquivadaService: ArquivadasService,
     private notaService: NotaService,
     private notificacao: NotificacaoService,
+    public categoriaService: CategoriaService
   ) { }
+
+  public filtrarArquivadas(filtro: string) {
+    if (filtro == '') {
+      return this.arquivadas$ = this.arquivadaService.selecionarTodos()
+    }
+
+    const resultado = this.arquivadaService.selecionarTodos().pipe(
+      map(f => f.filter(r => r.categoria.titulo == filtro))
+    )
+
+    return this.arquivadas$ = resultado;
+  }
 
 
   public desArquivar(nota: NotaCriada) {
@@ -60,6 +76,7 @@ export class ListarArquivadasComponent implements OnInit {
 
   ngOnInit(): void {
     this.arquivadas$ = this.arquivadaService.selecionarTodos();
+    this.categorias$ = this.categoriaService.selecionarTodos();
   }
 
 }
